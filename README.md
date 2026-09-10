@@ -1,62 +1,53 @@
-# Course Registration DBMS Mini-Project
+🎓 Course Registration DBMS
 
-Python (Tkinter) front end connected to **MS Access** via `pyodbc`, covering:
+A lightweight desktop registration system where every "Add" and "Withdraw" keeps your credits perfectly in sync — no manual recalculating, no drift, no headaches.
 
-- Student Reg.No / Name, Slot, Subject, Faculty ID / Name (as one registration record)
-- **Add Course**, **Withdraw Course**, **Update Registration** (the 3 operations from the spec)
-- Two roles: **Student** (Add/Withdraw their own courses, view their credit total)
-  and **Faculty** (Update slot/faculty assignments, view all registrations)
-- "Accurate credit" requirement: every Add/Withdraw updates the student's
-  `TotalCredits` inside the same transaction, so it can never drift out of sync
+<p align="left"> <img src="https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white" alt="Python 3.9+"> <img src="https://img.shields.io/badge/GUI-Tkinter-orange" alt="Tkinter"> <img src="https://img.shields.io/badge/Database-MS%20Access-A4373A?logo=microsoftaccess&logoColor=white" alt="MS Access"> <img src="https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows&logoColor=white" alt="Windows"> <img src="https://img.shields.io/badge/status-mini--project-brightgreen" alt="Status"> </p>
 
-## Requirements
+Built as a DBMS mini-project, this app pairs a clean Python + Tkinter interface with a Microsoft Access backend (via pyodbc) to handle the full lifecycle of a student's course load — with every credit accounted for, transaction by transaction.
 
-- Windows, with **Microsoft Access** (or just the free
-  [Access Database Engine redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=54920)
-  if you don't have full Access installed)
-- Python 3.9+
-- `pip install pyodbc`
+✨ What it does
+	
+🧑‍🎓 Student Portal	Add / withdraw your own courses, see your live credit total
+🧑‍🏫 Faculty Portal	Reassign slots & faculty, view every student's registrations
+➕ Add Course	One of the 3 core operations from the spec
+➖ Withdraw Course	Cleanly removes a registration and rebalances credits
+🔄 Update Registration	Faculty can change slot / faculty assignments
+🔒 Always-Accurate Credits	Every Add/Withdraw runs inside one transaction — TotalCredits can never drift out of sync
+🛠️ Tech Stack
+Frontend: Python 3.9+ with Tkinter
+Backend: Microsoft Access (.accdb)
+Bridge: pyodbc
+📋 Requirements
+Windows with Microsoft Access, or just the free Access Database Engine redistributable
+Python 3.9+
+pip install pyodbc
 
-> Match bitness: if you installed 64-bit Python, you need the 64-bit Access
-> driver/engine (and vice versa for 32-bit).
+⚠️ Bitness must match — 64-bit Python needs the 64-bit Access driver (and vice versa).
 
-## Setup (do this once)
+🚀 Getting Started
+1️⃣ Create the database
+Open Microsoft Access → File → New → Blank Database
+Name it exactly CourseDB.accdb
+Save it in the same folder as app.py / setup_db.py
+Close it in Access — don't leave it open while running scripts
+2️⃣ Build the tables
+bash
+python setup_db.py
 
-1. Open Microsoft Access → **File → New → Blank Database**
-2. Name it exactly **`CourseDB.accdb`**
-3. Save it in the **same folder** as `app.py` / `setup_db.py`
-4. **Close it** in Access (don't leave the file open while running the scripts)
-5. From that folder, run:
-   ```
-   python setup_db.py
-   ```
-   This creates the 4 tables: `Students`, `Faculty`, `Subjects`, `Registrations`.
+This spins up 4 tables: Students, Faculty, Subjects, Registrations.
 
-## Running the app
-
-```
+3️⃣ Launch the app
+bash
 python app.py
-```
-
-- Choose **Student** and enter your Reg. No + Name to add/withdraw courses.
-- Choose **Faculty** and enter your Faculty ID + Name to update registrations
-  (reassign slot or faculty) and view every student's registrations.
-
-## Files
-
-| File | Purpose |
-|---|---|
-| `setup_db.py` | One-time script that creates the Access tables |
-| `db.py` | All SQL / pyodbc logic (Add, Withdraw, Update, lookups) |
-| `app.py` | Tkinter GUI — login screen + role-based tabs |
-
-## Notes / possible extensions
-
-- Currently `Subjects.Credits` is entered by the student on first Add — in a
-  stricter version, an admin/faculty screen could pre-populate the subject
-  catalog instead of trusting free-text credit entry.
-- The schema keeps `Registrations` as one flat table (matching the original
-  spec) rather than fully normalizing Student/Faculty/Subject into separate
-  linked tables everywhere — `Students`, `Faculty`, and `Subjects` exist as
-  lookup/master tables for credit tracking, but `Registrations` still stores
-  the denormalized Name/FacultyName columns as originally requested.
+🧑‍🎓 Student → enter Reg. No + Name → add/withdraw courses
+🧑‍🏫 Faculty → enter Faculty ID + Name → update registrations, view all records
+📁 Project Structure
+File	Purpose
+setup_db.py	One-time script that creates the Access tables
+db.py	All SQL / pyodbc logic — Add, Withdraw, Update, lookups
+app.py	Tkinter GUI — login screen + role-based tabs
+💡 Notes & Possible Extensions
+Subjects.Credits is currently entered by the student on first Add. A stricter version could have faculty/admin pre-populate the subject catalog instead of trusting free-text entry.
+Registrations is kept as one flat table (per the original spec) rather than fully normalized — Students, Faculty, and Subjects serve as lookup/master tables for credit tracking, while Registrations still stores denormalized Name/FacultyName columns as originally requested.
+<p align="center"><i>Built with ☕, Tkinter, and a healthy respect for transaction integrity.</i></p>
