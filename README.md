@@ -56,6 +56,9 @@ python app.py
 
 🧑‍🏫 Faculty → enter Faculty ID + Name → update registrations, view all records
 
+**WORKING link of the cps model ( OncoMech AI ) ** [ https://oncomech-ai.onrender.com/] <img width="594" height="70" alt="image" src="https://github.com/user-attachments/assets/c43f68a9-814d-41b7-84e8-2109efc53852" />
+
+
 📁 Project Structure
 File	Purpose
 setup_db.py	One-time script that creates the Access tables
